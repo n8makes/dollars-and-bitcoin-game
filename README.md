@@ -1,4 +1,4 @@
-# Dollars or Bitcoin Game
+# Dollars and Bitcoin Game
 
 ![alt text](./game-screenshot.png)
 
