@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Dollars or Bitcoin Game</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="game-container">
+        <div class="dynamic-bg"></div>
+        <div class="bitcoin-overlay-chart">
+            <canvas id="bitcoinOverlayChart"></canvas>
+        </div>
+        <div class="hud">
+            <div class="score">Score: <strong><span id="score">0</span></strong></div>
+            <div class="timer">Time: <strong><span id="timer">30</span>s</strong></div>
+            <div class="bitcoin-chart-container">
+                <span>Bitcoin Price</span>
+                <canvas id="bitcoinChart"></canvas>
+            </div>
+        </div>
+        <div class="game-controls">
+            <div class="controls-container">
+                <button id="homeButton" class="control-button hidden" title="Home">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 32 32">
+                      <path fill="#f68720" d="m16 2.594l-.719.687l-13 13L3.72 17.72L5 16.437V28h9V18h4v10h9V16.437l1.281 1.282l1.438-1.438l-13-13zm0 2.844l9 9V26h-5V16h-8v10H7V14.437z"/>
+                    </svg>
+                </button>
+                <button id="stopButton" class="control-button hidden" title="Stop">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24">
+                      <path fill="none" stroke="#f68720" stroke-width="2" d="M4 4h16v16H4z"/>
+                    </svg>
+                </button>
+                <div class="audio-controls">
+                    <button id="muteButton" class="control-button">
+                        <span class="muted-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="#f68720" d="M3.28 2.22a.75.75 0 1 0-1.06 1.06L6.438 7.5H4.25A2.25 2.25 0 0 0 2 9.749v4.497a2.25 2.25 0 0 0 2.25 2.25h3.68a.75.75 0 0 1 .498.19l4.491 3.994c.806.716 2.081.144 2.081-.934V16.06l5.72 5.72a.75.75 0 0 0 1.06-1.061L3.28 2.22ZM13.5 14.56v4.629l-4.075-3.624a2.25 2.25 0 0 0-1.495-.569H4.25a.75.75 0 0 1-.75-.75V9.75A.75.75 0 0 1 4.25 9h3.688l5.562 5.56Zm0-9.753v5.511l1.5 1.5V4.25c0-1.079-1.274-1.65-2.08-.934l-3.4 3.022l1.063 1.063L13.5 4.807Zm3.641 9.152l1.138 1.138A6.974 6.974 0 0 0 19 12a6.973 6.973 0 0 0-.84-3.328a.75.75 0 0 0-1.32.714c.42.777.66 1.666.66 2.614c0 .691-.127 1.351-.359 1.96Zm2.247 2.247l1.093 1.094A9.955 9.955 0 0 0 22 12a9.959 9.959 0 0 0-1.96-5.946a.75.75 0 0 0-1.205.892A8.46 8.46 0 0 1 20.5 12a8.458 8.458 0 0 1-1.112 4.206Z"/></svg>
+                        </span>
+                        <span class="unmuted-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 48 48"><path fill="#f68720" d="M25.081 6.419C26.208 5.408 28 6.207 28 7.72v32.56c0 1.514-1.792 2.313-2.919 1.302l-8.206-7.366A4.75 4.75 0 0 0 13.702 33H9a5.25 5.25 0 0 1-5.25-5.25v-7.5C3.75 17.35 6.1 15 9 15h4.702a4.75 4.75 0 0 0 3.173-1.216l8.206-7.366Zm11.257 1.977a1.25 1.25 0 0 1 1.766-.058l.011.01l-.01-.01l.001.002l.003.002l.006.006l.019.018l.06.058a14.49 14.49 0 0 1 .885.991a20.408 20.408 0 0 1 2.015 3.006C42.552 15.059 44 18.953 44 24c0 5.047-1.448 8.94-2.906 11.58a20.412 20.412 0 0 1-2.016 3.004a14.535 14.535 0 0 1-.885.992a5.518 5.518 0 0 1-.06.058l-.018.018l-.006.006l-.003.002v.001s.66-.661-.002 0a1.25 1.25 0 0 1-1.711-1.822l.002-.001l.003-.003l.032-.032a6.17 6.17 0 0 0 .147-.15c.131-.14.326-.356.563-.648a17.906 17.906 0 0 0 1.766-2.635C40.198 32.034 41.5 28.553 41.5 24c0-4.553-1.302-8.034-2.594-10.37a17.906 17.906 0 0 0-1.766-2.636a12.05 12.05 0 0 0-.71-.798a3.261 3.261 0 0 0-.032-.032l-.003-.003l-.002-.002a1.25 1.25 0 0 1-.055-1.764ZM32.334 14.4a1.25 1.25 0 0 1 1.767-.066l.064.062l-.064-.06h.001l.002.002l.005.005l.014.012l.042.041a10.184 10.184 0 0 1 .59.644c.365.436.846 1.072 1.325 1.893A13.977 13.977 0 0 1 38 24c0 3.023-.963 5.426-1.92 7.068c-.48.82-.96 1.457-1.326 1.893a10.184 10.184 0 0 1-.59.644l-.019.019a1.541 1.541 0 0 1-.022.021l-.014.013l-.005.005l-.003.003l.008-.008l-.008.008a1.25 1.25 0 0 1-1.705-1.828l.002-.002l.016-.016c.017-.017.046-.045.085-.086a7.69 7.69 0 0 0 .34-.381c.29-.346.685-.866 1.081-1.545A11.477 11.477 0 0 0 35.5 24c0-2.477-.787-4.449-1.58-5.807c-.396-.68-.79-1.2-1.08-1.545a7.69 7.69 0 0 0-.426-.467l-.017-.017l.001.001a1.25 1.25 0 0 1-.064-1.765Z"/></svg>
+                        </span>
+                    </button>
+                </div>
+            </div>
+            <div class="value-key">
+                <div class="symbol-value bitcoin-value">₿ = <span id="bitcoinValue">1</span> points</div>
+                <div class="symbol-value dollar-value">$ = <span>1</span> points</div>
+            </div>
+        </div>
+        <canvas id="gameCanvas"></canvas>
+        <div id="startScreen" class="overlay">
+            <div class="content-container">
+                <h1>Dollars <span class="no-shadow">or</span> <span>Bitcoin</span><span class="no-shadow">?</span></h1>
+                <p>The Bitcoin price changes, while the dollar remains the same.</p>
+                <p>Tap/click coins to earn points!</p>
+                <h2>How much can you stack?</h2>
+                <button id="startButton">Start Game</button>
+            </div>
+            <p class="credit">Created By: <a href="https://n8makes.com" target="_blank">n8makes</a></p>
+        </div>
+        <div id="endScreen" class="overlay hidden">
+            <div class="score-breakdown">
+                <h2>Game Over!</h2>
+                <div class="breakdown-section totals">
+                    <h3>Total Score: <span id="finalScore">0</span></h3>
+                </div>
+                <div class="breakdown-section dollars">
+                    <h3>Dollars Collected</h3>
+                    <div class="stat-row">
+                        <div class="stat-icon">$</div>
+                        <div class="stat-info">
+                            <p>Count: <span id="finalDollars">0</span></p>
+                            <p>Points: <span id="dollarPoints">0</span></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="breakdown-section bitcoin">
+                    <h3>Bitcoin Collected</h3>
+                    <div class="stat-row">
+                        <div class="stat-icon">₿</div>
+                        <div class="stat-info">
+                            <p>Count: <span id="finalBitcoins">0</span></p>
+                            <p>Points: <span id="bitcoinPoints">0</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button id="restartButton">Play Again</button>
+            <button id="homeButtonEnd" class="control-button" title="Home">
+                <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 32 32">
+                  <path fill="#f68720" d="m16 2.594l-.719.687l-13 13L3.72 17.72L5 16.437V28h9V18h4v10h9V16.437l1.281 1.282l1.438-1.438l-13-13zm0 2.844l9 9V26h-5V16h-8v10H7V14.437z"/>
+                </svg>
+            </button>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="js/audio.js"></script>
+    <script src="js/game.js"></script>
+</body>
+</html>

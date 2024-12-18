@@ -1,0 +1,420 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    height: 100%;
+}
+
+body {
+    background-color: #0a0a0a;
+    color: #fff;
+    font-family: 'Arial', sans-serif;
+    overflow: hidden;
+    touch-action: none;
+}
+
+.game-container {
+    position: relative;
+    width: 100dvw;
+    height: 100dvh;
+    overflow: hidden;
+    background-color: #0a0a0a;
+}
+
+.dynamic-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    opacity: 0.5;
+    background: radial-gradient(circle at center, #1a1a2e 0%, #0a0a0a 100%);
+}
+
+canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    touch-action: none;
+}
+
+.hud {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index: 1;
+    font-size: 13px;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    justify-items: center;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    border-bottom: 1px solid #f68720;
+}
+
+.score strong,
+.timer strong {
+    display: block;
+    font-size: 20px;
+}
+
+.score,
+.timer {
+    text-transform: uppercase;
+    font-size: 10px;
+}
+
+.timer {
+    text-align: center;
+}
+
+.timer #timer {
+    color: #f7931a;
+    font-weight: bold;
+    font-size: 24px;
+}
+
+.bitcoin-chart-container {
+    width: 150px;
+    height: 40px;
+    margin-top: 5px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 4px;
+    padding: 4px;
+    position: relative;
+}
+
+.bitcoin-chart-container span {
+    position: absolute;
+    font-size: 10px;
+    top: 0;
+    left: 0;
+    text-transform: uppercase;
+}
+
+#bitcoinChart {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100% !important;
+    height: 100% !important;
+    image-rendering: crisp-edges;
+}
+
+.symbol-value {
+    font-size: 13px;
+    margin: 5px 0;
+}
+
+.bitcoin-value {
+    color: #f7931a;
+    font-weight: bold;
+}
+
+.dollar-value {
+    color: #00ff00;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 2;
+}
+
+.overlay .content-container {
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.8);
+}
+
+.hidden {
+    display: none;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background: #f68720;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+    margin: 10px;
+    box-shadow: 0 0 20px #f68720;
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 30px #f68720;
+}
+
+.home-link {
+    color: #f68720;
+    text-decoration: none;
+    font-size: 14px;
+    margin-top: 5px;
+    display: block;
+}
+
+.home-link:hover {
+    text-decoration: underline;
+}
+
+h1 {
+    font-size: 48px;
+    margin-bottom: 20px;
+    text-shadow: 0 0 20px #00ff00;
+}
+
+h1 span {
+    text-shadow: 0 0 20px #f68720;
+}
+
+h1 span.no-shadow {
+    text-shadow: none;
+}
+
+#startScreen {
+    text-align: center;
+}
+
+#startScreen p {
+    margin: 10px 0;
+}
+
+#startScreen button {
+    margin: 20px auto 0 auto;
+    display: block;
+}
+
+.credit {
+    position: absolute;
+    left: 0;
+    bottom: 10px;
+    font-size: 11px;
+    width: 100%;
+    text-align: center;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+.credit a {
+    color: #f68720;
+}
+
+.score-breakdown {
+    text-align: left;
+    padding: 20px 20px 0;
+    margin: 20px;
+    background: rgba(0, 0, 0, 0.8);
+    max-width: 800px;
+    width: 80%;
+    max-height: 80vh;
+    box-shadow: 0 0 15px rgba(246, 135, 32, 0.2);
+}
+
+.score-breakdown h2 {
+    font-size: 24px;
+    margin-bottom: 18px;
+    text-align: center;
+    text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+}
+
+.score-breakdown h3 {
+    font-size: 18px;
+    margin-bottom: 8px;
+    color: #00ff00;
+}
+
+.breakdown-section {
+    margin: 10px 0;
+    padding: 10px;
+}
+
+.breakdown-section.bitcoin h3 {
+    color: #f7931a;
+}
+
+.breakdown-section.totals h3 {
+    color: #fff;
+    text-transform: uppercase;
+    font-size: 10px;
+    text-align: center;
+}
+
+.breakdown-section.totals h3 span {
+    font-size: 30px;
+    display: block;
+}
+
+.stat-row {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 10px;
+}
+
+.stat-icon {
+    font-size: 24px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+}
+
+.dollars .stat-icon {
+    color: #85bb65;
+}
+
+.bitcoin .stat-icon {
+    color: #f7931a;
+}
+
+.stat-info {
+    flex: 1;
+}
+
+.stat-info p {
+    margin: 5px 0;
+    font-size: 16px;
+}
+
+#endScreen .control-button {
+    margin-top: 20px;
+}
+
+.game-controls {
+    position: absolute;
+    bottom: 0;
+    left: 0%;
+    width: 100%;
+    padding: 10px;
+    z-index: 2;
+    display: flex;
+    justify-content: space-between;
+    background: rgba(0, 0, 0, 0.85);
+    border-top: 1px solid #f68720;
+}
+
+.controls-container {
+    display: flex;
+    gap: 20px;
+}
+
+.audio-controls {
+    margin-right: 30px;
+}
+
+#muteButton > span {
+    position: relative;
+    top: 2px;
+    right: -1px;
+}
+
+#muteButton .muted-icon {
+    display: none;
+}
+
+#muteButton .unmuted-icon {
+    display: block;
+}
+
+#muteButton.muted .muted-icon {
+    display: block;
+}
+
+#muteButton.muted .unmuted-icon {
+    display: none;
+}
+
+.control-button {
+    background: none;
+    border: 2px solid #f68720;
+    border-radius: 50%;
+    color: #f68720;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 8px;
+    margin: 0;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: none;
+    transition: all 0.2s ease;
+}
+
+.control-button:hover {
+    transform: scale(1.1);
+    box-shadow: none;
+}
+
+.mute-button {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 5px;
+    margin: 0;
+    box-shadow: none;
+}
+
+.mute-button:hover {
+    transform: scale(1.1);
+    box-shadow: none;
+}
+
+.value-key {
+    font-size: 10px;
+}
+
+@keyframes flash {
+    0% { transform: scale(1); text-shadow: 0 0 10px #f7931a; }
+    50% { transform: scale(1.2); text-shadow: 0 0 20px #f7931a; }
+    100% { transform: scale(1); text-shadow: 0 0 10px #f7931a; }
+}
+.countdown {
+    font-size: 120px;
+    font-weight: bold;
+    color: #f68720;
+    text-shadow: 0 0 30px rgba(246, 135, 32, 0.8);
+    animation: pulseScale 0.5s ease-in-out;
+}
+
+@keyframes pulseScale {
+    0% { transform: scale(0.8); opacity: 0.5; }
+    50% { transform: scale(1.2); opacity: 1; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+.flash-animation {
+    animation: flash 0.5s ease-in-out;
+}
+
+@media (max-width: 700px) {
+
+    h1 {
+        font-size: 33px;
+    }
+}
